@@ -35,8 +35,9 @@ let eccartEntreLesLignesDeTiles = 75;
 let largeurTilesDeBase = 150;
 let hauteurTilesDeBase = 50;
 let hauteurDeLaPremiereLigne = YTilesDeBase + eccartEntreLesLignesDeTiles + (hauteurTilesDeBase * 2);
-let sacDeTile = [7, 4, 50, 2, 8, 10, 2, 1, 3, 10, 6, 8, 75, 100, 9, 7, 4, 6, 7, 5, 3, 25, 5]
+let sacDeTile = [7, 4, 50, 2, 8, 10, 2, 1, 3, 10, 6, 8, 75, 9, 7, 4, 6, 7, 5, 3, 25, 5, 100]
 let tirage = [];
+let objectifRange = [100, 1000]
 //gameplay
 let DblClick = -1;
 let SimpleClick = -1;
@@ -215,6 +216,13 @@ function keyPressed() {
   }
   if (key === "l") {
     nombreEnLettre = !nombreEnLettre;
+    if (nombreEnLettre) {
+      objectifRange = [20, 100];
+      phaseX = [100, 400, 450, 700];
+    } else {
+      objectifRange = [100, 1000];
+      phaseX = [100, 200, 250, 400];
+    }
   }
 }
 
@@ -328,7 +336,7 @@ function randomPartie() {
     tiles[i].value = tireAuSort();
   }
   tirage = [];
-  tiles[6].value = floor(random(100, 1000));
+  tiles[6].value = floor(random(objectifRange[0], objectifRange[1]));
 
   function tireAuSort() {
     this.new = false

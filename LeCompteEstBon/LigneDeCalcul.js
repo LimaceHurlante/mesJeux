@@ -11,12 +11,21 @@ class LigneDeCalcul {
 
     for (var i = 0; i < 3; i++) {
       if (this.value[i] != null) {
+        var aAfficher = this.value[i]
+        if (nombreEnLettre && Number.isInteger(aAfficher)) {
+          aAfficher = convert0tozero(aAfficher);
+        }
+
         textSize(35);
-        text(this.value[i], phaseX[i], hauteurDeLaPremiereLigne + (this.ligne * 40));
+        text(aAfficher, phaseX[i], hauteurDeLaPremiereLigne + (this.ligne * 40));
       }
     }
     if (this.resultat != null) {
-      text("= " + this.resultat, phaseX[3], hauteurDeLaPremiereLigne + (this.ligne * 40));
+      aAfficher = this.resultat
+      if (nombreEnLettre && Number.isInteger(aAfficher)) {
+        aAfficher = convert0tozero(aAfficher);
+      }
+      text("= " + aAfficher, phaseX[3], hauteurDeLaPremiereLigne + (this.ligne * 40));
       this.tile.display();
     }
   }
