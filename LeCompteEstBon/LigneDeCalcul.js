@@ -8,15 +8,15 @@ class LigneDeCalcul {
   }
 
   display() {
-    
+
     for (var i = 0; i < 3; i++) {
       if (this.value[i] != null) {
         textSize(35);
-        text(this.value[i], phaseX[i], 450 + (this.ligne * 40));
+        text(this.value[i], phaseX[i], hauteurDeLaPremiereLigne + (this.ligne * 40));
       }
     }
     if (this.resultat != null) {
-      text("= " + this.resultat, phaseX[3], 450 + (this.ligne * 40));
+      text("= " + this.resultat, phaseX[3], hauteurDeLaPremiereLigne + (this.ligne * 40));
       this.tile.display();
     }
   }
@@ -24,19 +24,21 @@ class LigneDeCalcul {
     if (this.value[0] === null) {
       if (Number.isInteger(v)) { //
         this.value[0] = v;
-      }else{
-        if(nbNewTiles>0){
-          this.value[0] = ligneDeCalcul[nbNewTiles-1].tile.value;
-          ligneDeCalcul[nbNewTiles-1].tile.used = true;
-          continuite.push(100 + nbNewTiles-1)
-          
+      } else {
+        if (nbNewTiles > 0) {
+          this.value[0] = ligneDeCalcul[nbNewTiles - 1].tile.value;
+          ligneDeCalcul[nbNewTiles - 1].tile.used = true;
+          continuite.push(100 + nbNewTiles - 1)
+
           this.value[1] = v;
         }
       }
     } else if (this.value[1] === null) {
       if (Number.isInteger(v) === false) {
         this.value[1] = v;
-      }else{return "ERROR"}
+      } else {
+        return "ERROR"
+      }
     } else if (this.value[2] === null) {
       if (Number.isInteger(v)) {
         this.value[2] = v;
@@ -46,13 +48,13 @@ class LigneDeCalcul {
         this.calculResultat();
 
         this.TileResultat();
-        if ((Number.isInteger(this.resultat)==false) ||(this.resultat<0)){
+        if ((Number.isInteger(this.resultat) == false) || (this.resultat < 0)) {
           erreurResultatDecimalOuNegatif = true;
         }
-      }else{
+      } else {
         this.value[1] = v;
         print(continuite);
-        continuite.splice(continuite.length-1,1);
+        continuite.splice(continuite.length - 1, 1);
         print(continuite);
       }
     }
@@ -73,28 +75,27 @@ class LigneDeCalcul {
         this.resultat = this.value[0] / this.value[2]
         break;
     }
-    
+
   }
-  
+
   TileResultat() {
 
-    this.tile = new Tile(this.resultat,tiles[nbNewTiles].pos.x, YTilesDeBase +100, SizeTilesDeBase);
-        // this.tile = new Tile(this.resultat,200 + 225 * nbNewTiles, YTilesDeBase +100, SizeTilesDeBase);
+    this.tile = new Tile(this.resultat, tiles[nbNewTiles].pos.x, YTilesDeBase + eccartEntreLesLignesDeTiles, largeurTilesDeBase, hauteurTilesDeBase);
     nbNewTiles++;
-      
-      if (this.resultat === tiles[6].value){
-  this.tile.victoire = true;
+
+    if (this.resultat === tiles[6].value) {
+      this.tile.victoire = true;
+    }
   }
-  }
-  
-  etat(){
+
+  etat() {
     this.a = 0
-    for(var i = 0;i<this.value.length;i++){
-      if(this.value[i]!=null){
-        this.a = i+1
+    for (var i = 0; i < this.value.length; i++) {
+      if (this.value[i] != null) {
+        this.a = i + 1
       }
 
     }
-    return this.a;  
+    return this.a;
   }
 }
